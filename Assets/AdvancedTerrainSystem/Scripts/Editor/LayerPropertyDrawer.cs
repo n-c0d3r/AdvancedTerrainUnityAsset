@@ -130,7 +130,7 @@ namespace AdvancedTerrainSystem
 
                 case "Matrix4x4":
 
-                    property.FindPropertyRelative("m_Matrix4x4_R0_Value").vector2Value = EditorGUI.Vector4Field(
+                    property.FindPropertyRelative("m_Matrix4x4_R0_Value").vector4Value = EditorGUI.Vector4Field(
                         new Rect(
 
                             valueFieldPosition,
@@ -141,10 +141,10 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Matrix4x4_R0_Value").vector2Value
+                        property.FindPropertyRelative("m_Matrix4x4_R0_Value").vector4Value
                     );
 
-                    property.FindPropertyRelative("m_Matrix4x4_R1_Value").vector2Value = EditorGUI.Vector4Field(
+                    property.FindPropertyRelative("m_Matrix4x4_R1_Value").vector4Value = EditorGUI.Vector4Field(
                         new Rect(
 
                             valueFieldPosition + new Vector2(0, EditorGUIUtility.singleLineHeight + 2),
@@ -155,10 +155,10 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Matrix4x4_R1_Value").vector2Value
+                        property.FindPropertyRelative("m_Matrix4x4_R1_Value").vector4Value
                     );
 
-                    property.FindPropertyRelative("m_Matrix4x4_R2_Value").vector2Value = EditorGUI.Vector4Field(
+                    property.FindPropertyRelative("m_Matrix4x4_R2_Value").vector4Value = EditorGUI.Vector4Field(
                         new Rect(
 
                             valueFieldPosition + new Vector2(0, EditorGUIUtility.singleLineHeight + 2) * 2,
@@ -169,10 +169,10 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Matrix4x4_R2_Value").vector2Value
+                        property.FindPropertyRelative("m_Matrix4x4_R2_Value").vector4Value
                     );
 
-                    property.FindPropertyRelative("m_Matrix4x4_R3_Value").vector2Value = EditorGUI.Vector4Field(
+                    property.FindPropertyRelative("m_Matrix4x4_R3_Value").vector4Value = EditorGUI.Vector4Field(
                         new Rect(
 
                             valueFieldPosition + new Vector2(0, EditorGUIUtility.singleLineHeight + 2) * 3,
@@ -183,7 +183,7 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Matrix4x4_R3_Value").vector2Value
+                        property.FindPropertyRelative("m_Matrix4x4_R3_Value").vector4Value
                     );
 
                     break;
@@ -252,7 +252,7 @@ namespace AdvancedTerrainSystem
 
                 case "Vector3":
 
-                    property.FindPropertyRelative("m_Vector3Value").vector2Value = EditorGUI.Vector3Field(
+                    property.FindPropertyRelative("m_Vector3Value").vector3Value = EditorGUI.Vector3Field(
                         new Rect(
 
                             valueFieldPosition,
@@ -263,14 +263,14 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Vector3Value").vector2Value
+                        property.FindPropertyRelative("m_Vector3Value").vector3Value
                     );
 
                     break;
 
                 case "Vector4":
 
-                    property.FindPropertyRelative("m_Vector4Value").vector2Value = EditorGUI.Vector4Field(
+                    property.FindPropertyRelative("m_Vector4Value").vector4Value = EditorGUI.Vector4Field(
                         new Rect(
 
                             valueFieldPosition,
@@ -281,7 +281,7 @@ namespace AdvancedTerrainSystem
 
                         "",
 
-                        property.FindPropertyRelative("m_Vector4Value").vector2Value
+                        property.FindPropertyRelative("m_Vector4Value").vector4Value
                     );
 
                     break;

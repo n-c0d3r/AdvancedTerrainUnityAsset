@@ -12,6 +12,30 @@ namespace AdvancedTerrainSystem
     public class Layer : ScriptableObject
     {
 
+        protected void Awake()
+        {
+
+
+
+        }
+
+
+
+        [SerializeField]
+        private string m_HLSLFilePath = "";
+
+        public string HLSLFilePath
+        {
+
+            get
+            {
+
+                return m_HLSLFilePath;
+
+            }
+
+        }
+
         public List<LayerProperty> m_Properties = new List<LayerProperty>();
 
 
@@ -29,6 +53,15 @@ namespace AdvancedTerrainSystem
             m_Properties.Add(property);
 
             return property;
+
+        }
+
+
+
+        public string GetHLSL()
+        {
+
+            return System.IO.File.ReadAllText(Application.dataPath + "/" + m_HLSLFilePath);
 
         }
 

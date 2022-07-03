@@ -18,6 +18,15 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public virtual void Apply2Material(Material material, uint layerIndex)
+        {
+
+            material.SetTexture(MatPropReferenceWithLayerIndex(layerIndex), Texture2D_Value);
+
+        }
+
     }
 
 }

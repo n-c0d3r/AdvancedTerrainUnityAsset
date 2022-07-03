@@ -18,6 +18,15 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public virtual void Apply2Material(Material material, uint layerIndex)
+        {
+
+            material.SetMatrix(MatPropReferenceWithLayerIndex(layerIndex), Matrix4x4_Value);
+
+        }
+
     }
 
 }

@@ -47,7 +47,67 @@ namespace AdvancedTerrainSystem
 
 
 
+        [SerializeField]
+        private string m_Directory;
+
+        public string Directory
+        {
+
+            get
+            {
+
+                return m_Directory;
+
+            }
+
+        }
+
+        [SerializeField]
+        private ShaderTemplate m_ShaderTemplate;
+
+        public ShaderTemplate ShaderTemplate
+        {
+
+            get
+            {
+
+                return m_ShaderTemplate;
+
+            }
+
+        }
+
+        private ShaderCompiler m_ShaderCompiler;
+
+        public ShaderCompiler ShaderCompiler
+        {
+
+            get
+            {
+
+                return m_ShaderCompiler;
+
+            }
+
+        }
+
         public List<Layer> m_Layers;
+
+
+
+        private void Awake()
+        {
+
+            m_ShaderCompiler = new ShaderCompiler(this);
+
+        }
+
+        private void Start()
+        {
+
+            Debug.Log(m_ShaderCompiler.Compile());
+
+        }
 
     }
 

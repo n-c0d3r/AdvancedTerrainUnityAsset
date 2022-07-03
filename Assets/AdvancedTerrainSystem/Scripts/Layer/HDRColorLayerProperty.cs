@@ -18,6 +18,15 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public virtual void Apply2Material(Material material, uint layerIndex)
+        {
+
+            material.SetColor(MatPropReferenceWithLayerIndex(layerIndex), Color_Value);
+
+        }
+
     }
 
 }

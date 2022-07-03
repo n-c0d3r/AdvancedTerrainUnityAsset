@@ -241,6 +241,29 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public string MatPropNameWithLayerIndex (uint layerIndex)
+        {
+
+            return "" + Name + "_" + layerIndex.ToString();
+        }
+
+        public string MatPropReferenceWithLayerIndex(uint layerIndex)
+        {
+
+            return "_" + Name + "_" + layerIndex.ToString();
+        }
+
+
+
+        public virtual void Apply2Material(Material material, uint layerIndex)
+        {
+
+
+
+        }
+
     }
 
 }
