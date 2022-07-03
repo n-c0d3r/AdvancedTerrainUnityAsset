@@ -18,6 +18,15 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public virtual void Apply2Material(Material material, uint layerIndex)
+        {
+
+            material.SetFloat(MatPropReferenceWithLayerIndex(layerIndex), Float_Value);
+
+        }
+
     }
 
 }
