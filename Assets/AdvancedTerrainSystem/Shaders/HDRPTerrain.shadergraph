@@ -533,6 +533,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "09bbbe88db704a2fae997674419122e8",
+    "m_Id": 7,
+    "m_DisplayName": "AlphaOut",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaOut",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "11b9d7477e8d40229e7bf137bbf6dd40",
     "m_Id": 0,
@@ -899,21 +914,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "33269332baed44e3bb5ce281dfc768b2",
-    "m_Id": 7,
-    "m_DisplayName": "Alpha",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Alpha",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "342db152a7b24b3c9331dcf00c3cccf9",
     "m_Group": {
@@ -1149,7 +1149,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 0
+    "m_Space": 3
 }
 
 {
@@ -1320,9 +1320,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -434.0,
+            "x": -435.0,
             "y": 883.0,
-            "width": 271.00006103515627,
+            "width": 268.0,
             "height": 262.0
         }
     },
@@ -1361,7 +1361,7 @@
             "m_Id": "7d762bd18d3a4cd2bfa08410007f6bb8"
         },
         {
-            "m_Id": "33269332baed44e3bb5ce281dfc768b2"
+            "m_Id": "09bbbe88db704a2fae997674419122e8"
         }
     ],
     "synonyms": [
@@ -1374,10 +1374,10 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SourceType": 0,
+    "m_SourceType": 1,
     "m_FunctionName": "TerrainFragment",
     "m_FunctionSource": "fc4cb2e0fbecdb74a977f831414df949",
-    "m_FunctionBody": "Enter function body here..."
+    "m_FunctionBody": "\tBaseColorOut = float3(1, 1, 1);\r\n\tNormalOut = NormalIn;\r\n\tBentNormalOut = float3(0, 1, 0);\r\n\tMetallicOut = 0;\r\n\tEmissionOut = float3(0, 0, 0);\r\n\tSmoothnessOut = 0.5f;\r\n\tAmbientOcclusionOut = 1;\r\n\tAlphaOut = 1;\r\n\r\n\t//$(FRAGMENT_COMPUTE)"
 }
 
 {
@@ -1493,29 +1493,6 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "NormalIn",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "810bc8f79ba5457d898e82974ebbea35",
-    "m_Id": 7,
-    "m_DisplayName": "TessellationDisplacement",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "TessellationDisplacement",
     "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
@@ -2005,9 +1982,9 @@
     "m_ShaderOutputName": "BaseColor",
     "m_StageCapability": 2,
     "m_Value": {
-        "x": 0.5,
-        "y": 0.5,
-        "z": 0.5
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -2203,6 +2180,29 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "e9102e3abf85464f9aed7954012014f5",
+    "m_Id": 7,
+    "m_DisplayName": "TessellationDisplacementOut",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "TessellationDisplacementOut",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "edff9d57df854b6cbdbdb7febcc53515",
     "m_Id": 3,
     "m_DisplayName": "TangentOut",
@@ -2323,7 +2323,7 @@
             "m_Id": "c64e6fee4fac48269980c959f9db8dc5"
         },
         {
-            "m_Id": "810bc8f79ba5457d898e82974ebbea35"
+            "m_Id": "e9102e3abf85464f9aed7954012014f5"
         }
     ],
     "synonyms": [
@@ -2336,10 +2336,10 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_SourceType": 0,
+    "m_SourceType": 1,
     "m_FunctionName": "TerrainVertex",
     "m_FunctionSource": "c8635a49461a2644383439f73c488ce5",
-    "m_FunctionBody": "Enter function body here..."
+    "m_FunctionBody": "\tPositionOut = PositionIn;\r\n\tNormalOut = NormalIn;\r\n\tTangentOut = TangentIn;\r\n\tTessellationFactorOut = 1;\r\n\tTessellationDisplacementOut = float3(0, 0, 0);\r\n\r\n\t//$(VERTEX_COMPUTE)"
 }
 
 {

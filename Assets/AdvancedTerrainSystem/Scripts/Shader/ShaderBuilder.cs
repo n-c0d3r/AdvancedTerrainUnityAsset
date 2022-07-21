@@ -8,10 +8,10 @@ namespace AdvancedTerrainSystem
 {
 
     [System.Serializable]
-    public class ShaderCompiler : UnityEngine.Object
+    public class ShaderBuilder : UnityEngine.Object
     {
 
-        public ShaderCompiler(Terrain terrain)
+        public ShaderBuilder(Terrain terrain)
         {
 
             m_Terrain = terrain;
@@ -36,10 +36,10 @@ namespace AdvancedTerrainSystem
 
 
 
-        public string Compile()
+        public string Build()
         {
 
-            string result = m_Terrain.ShaderTemplate.GetHLSL();
+            string result = m_Terrain.ShaderTemplate.GetShaderFile();
 
 
 

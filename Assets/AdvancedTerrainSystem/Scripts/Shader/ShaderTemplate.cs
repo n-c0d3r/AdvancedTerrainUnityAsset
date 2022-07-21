@@ -14,24 +14,24 @@ namespace AdvancedTerrainSystem
     {     
 
         [SerializeField]
-        private string m_HLSLFilePath = "";
+        private string m_ShaderFilePath = "";
 
-        public string HLSLFilePath
+        public string ShaderFilePath
         {
 
             get
             {
 
-                return m_HLSLFilePath;
+                return m_ShaderFilePath;
 
             }
 
         }
 
-        public string GetHLSL()
+        public string GetShaderFile()
         {
 
-            return System.IO.File.ReadAllText(Application.dataPath + "/" + m_HLSLFilePath);
+            return System.IO.File.ReadAllText(Application.dataPath + "/" + m_ShaderFilePath);
 
         }
 

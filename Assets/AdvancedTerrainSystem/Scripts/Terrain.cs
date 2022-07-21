@@ -77,15 +77,15 @@ namespace AdvancedTerrainSystem
 
         }
 
-        private ShaderCompiler m_ShaderCompiler;
+        private ShaderBuilder m_ShaderBuilder;
 
-        public ShaderCompiler ShaderCompiler
+        public ShaderBuilder ShaderBuilder
         {
 
             get
             {
 
-                return m_ShaderCompiler;
+                return m_ShaderBuilder;
 
             }
 
@@ -98,14 +98,30 @@ namespace AdvancedTerrainSystem
         private void Awake()
         {
 
-            m_ShaderCompiler = new ShaderCompiler(this);
+            m_ShaderBuilder = new ShaderBuilder(this);
 
         }
 
         private void Start()
         {
 
-            Debug.Log(m_ShaderCompiler.Compile());
+            Debug.Log(m_ShaderBuilder.Build());
+
+        }
+
+        private void Update()
+        {
+
+            UpdateChunksVisibility(Camera.allCameras);
+
+        }
+
+
+
+        public void UpdateChunksVisibility(Camera[] cameras)
+        {
+
+
 
         }
 

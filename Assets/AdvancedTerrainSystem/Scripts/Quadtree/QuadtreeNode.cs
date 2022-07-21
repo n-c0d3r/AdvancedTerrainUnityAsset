@@ -11,7 +11,7 @@ namespace AdvancedTerrainSystem
     public struct QuadtreeNode
     {
 
-        public List<Chunk> chunks;
+
 
     }
 
