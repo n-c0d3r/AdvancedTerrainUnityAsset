@@ -10,7 +10,12 @@ namespace AdvancedTerrainSystem
     public class Quadtree
     {
 
+        public Quadtree()
+        {
 
+
+
+        }
 
     }
 

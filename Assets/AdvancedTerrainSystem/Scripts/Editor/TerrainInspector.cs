@@ -11,6 +11,31 @@ namespace AdvancedTerrainSystem
     [CustomEditor(typeof(Terrain))]
     public class TerrainInspector : Editor
     {
+
+        private string m_CreateDefaultLayerBtn_FileName = "NewLayer";
+
+        private int m_CreateDefaultLayerBtn_Selected = 0;
+
+        private string[] m_CreateDefaultLayerBtn_DisplayedOptions = new string[] {
+
+            "LitLayer"
+
+        };
+
+        public string m_CreateDefaultLayerBtn_DisplayedOption
+        {
+
+            get
+            {
+
+                return m_CreateDefaultLayerBtn_DisplayedOptions[m_CreateDefaultLayerBtn_Selected];
+
+            }
+
+        }
+
+
+
         public override void OnInspectorGUI()
         {
 
@@ -51,12 +76,42 @@ namespace AdvancedTerrainSystem
 
             }
 
+
+
+            //Generate Quadtree and Chunks Btn
+            {
+
+                if (GUILayout.Button("Generate Quadtree and Chunks"))
+                {
+
+                    GenerateQuadtreeAndChunks();
+
+                }
+
+            }
+
+
+
+            //Build Shader Btn
+            {
+
+                if (GUILayout.Button("Build Shader"))
+                {
+
+                    BuildShader();
+
+                }
+
+            }
+
         }
 
         public void OnSceneGUI()
         {
 
             Terrain terrain = (Terrain)target;
+
+            UpdateMaterial();
 
         }
 
@@ -105,26 +160,30 @@ namespace AdvancedTerrainSystem
 
 
 
-
-        private string m_CreateDefaultLayerBtn_FileName = "NewLayer";
-
-        private int m_CreateDefaultLayerBtn_Selected = 0;
-
-        private string[] m_CreateDefaultLayerBtn_DisplayedOptions = new string[] {
-
-            "LitLayer"
-
-        };
-
-        public string m_CreateDefaultLayerBtn_DisplayedOption
+        public void GenerateQuadtreeAndChunks()
         {
 
-            get
-            {
+            Terrain terrain = (Terrain)target;
 
-                return m_CreateDefaultLayerBtn_DisplayedOptions[m_CreateDefaultLayerBtn_Selected];
 
-            }
+
+        }
+
+        public void BuildShader()
+        {
+
+            Terrain terrain = (Terrain)target;
+
+
+
+        }
+
+        public void UpdateMaterial()
+        {
+
+            Terrain terrain = (Terrain)target;
+
+
 
         }
 
