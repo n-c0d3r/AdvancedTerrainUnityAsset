@@ -158,16 +158,14 @@ namespace AdvancedTerrainSystem
 
         }
 
-
-
         public void GenerateQuadtreeAndChunks()
         {
 
             Terrain terrain = (Terrain)target;
-
-
-
+            QuadtreeNode node = new QuadtreeNode(terrain.gameObject, terrain.QuadtreeLevelCount, 0, terrain);
         }
+
+
 
         public void BuildShader()
         {
