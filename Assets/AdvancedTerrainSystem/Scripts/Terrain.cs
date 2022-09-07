@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,19 +7,34 @@ using UnityEngine;
 
 namespace AdvancedTerrainSystem
 {
+    [Serializable]
+    public class TerrainSettings
+    {
+        public uint width;
+        public uint length;
+        public uint height;
+    }
 
     public class Terrain : MonoBehaviour
     {
+        
+        public TerrainSettings settings;
 
         [SerializeField]
         private uint m_QuadtreeLevelCount = 4;
 
-        private uint QuadtreeLevelCount
+        public uint QuadtreeLevelCount
         {
 
-            get;
+            get
+            {
+                return m_QuadtreeLevelCount;
+            }
 
-            set;
+            set
+            {
+                
+            }
 
         }
 
