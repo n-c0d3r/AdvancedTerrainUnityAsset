@@ -21,7 +21,7 @@ void FRAGMENT_SHADER(
 	float3 PositionIn, 
 	float3 NormalIn, 
 	float4 UVIn, 
-	float3 TangentIn,
+	float3 TangentIn, 
 	
 	out float3 BaseColorOut, 
 	out float3 NormalOut, 
@@ -30,14 +30,13 @@ void FRAGMENT_SHADER(
 	out float3 EmissionOut, 
 	out float SmoothnessOut, 
 	out float AmbientOcclusionOut, 
-	out float AlphaOut,
-	out float DisplacementOut
+	out float AlphaOut
 	
 )
 
 */
 
-$VERTEX_SHADER{
+void VERTEX_SHADER_1(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut){
 
 	PositionOut = PositionIn;
 	NormalOut = NormalIn;
@@ -49,9 +48,9 @@ $VERTEX_SHADER{
 
 
 
-$FRAGMENT_SHADER{
+void FRAGMENT_SHADER_1(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut){
 
-	BaseColorOut = $BaseColor;
+	BaseColorOut = BaseColor_1;
 	NormalOut = NormalIn;
 	BentNormalOut = float3(0, 1, 0);
 	MetallicOut = 0.5f;

@@ -22,6 +22,10 @@ namespace AdvancedTerrainSystem
 
         };
 
+        private ShaderBuilder m_ShaderBuilder = new ShaderBuilder();
+
+
+
         public string m_CreateDefaultLayerBtn_DisplayedOption
         {
 
@@ -174,7 +178,7 @@ namespace AdvancedTerrainSystem
 
             Terrain terrain = (Terrain)target;
 
-
+            m_ShaderBuilder.Build(terrain);
 
         }
 

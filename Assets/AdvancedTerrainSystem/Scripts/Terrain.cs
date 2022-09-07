@@ -77,20 +77,6 @@ namespace AdvancedTerrainSystem
 
         }
 
-        private ShaderBuilder m_ShaderBuilder;
-
-        public ShaderBuilder ShaderBuilder
-        {
-
-            get
-            {
-
-                return m_ShaderBuilder;
-
-            }
-
-        }
-
         public List<Layer> m_Layers;
 
 
@@ -98,14 +84,14 @@ namespace AdvancedTerrainSystem
         private void Awake()
         {
 
-            m_ShaderBuilder = new ShaderBuilder(this);
+
 
         }
 
         private void Start()
         {
 
-            Debug.Log(m_ShaderBuilder.Build());
+            
 
         }
 

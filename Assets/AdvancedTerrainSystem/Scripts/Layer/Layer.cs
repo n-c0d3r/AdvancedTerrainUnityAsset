@@ -36,6 +36,13 @@ namespace AdvancedTerrainSystem
 
         }
 
+        public string CompiledHLSLPath(int i)
+        {
+
+            return HLSLFilePath + ".COMPILED" + i.ToString() + ".hlsl";
+
+        }
+
         public List<LayerProperty> m_Properties = new List<LayerProperty>();
 
 

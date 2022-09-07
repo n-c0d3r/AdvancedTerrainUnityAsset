@@ -515,7 +515,7 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "$(PROPERTIES)",
     "m_DefaultReferenceName": "__PROPERTIES",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "__ATS_PROPERTIES",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
