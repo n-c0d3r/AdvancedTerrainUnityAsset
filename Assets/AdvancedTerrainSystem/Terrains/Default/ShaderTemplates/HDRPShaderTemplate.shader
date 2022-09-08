@@ -338,7 +338,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -438,22 +437,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -470,6 +453,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -489,18 +475,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -544,7 +523,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -718,7 +696,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -1371,6 +1348,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -2184,7 +2164,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -2284,22 +2263,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -2316,6 +2279,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -2335,18 +2301,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -2404,7 +2363,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -2578,7 +2536,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -3161,7 +3118,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -3261,22 +3217,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -3293,6 +3233,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -3312,18 +3255,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -3381,7 +3317,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -3555,7 +3490,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -4160,7 +4094,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -4272,22 +4205,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -4304,6 +4221,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -4323,18 +4243,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -4392,7 +4305,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -4568,7 +4480,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -5158,7 +5069,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -5258,22 +5168,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -5290,6 +5184,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -5309,18 +5206,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -5368,7 +5258,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -5542,7 +5431,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -6117,7 +6005,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -6217,22 +6104,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -6249,6 +6120,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -6268,18 +6142,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -6337,7 +6204,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -6511,7 +6377,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -7104,7 +6969,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -7204,22 +7068,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -7236,6 +7084,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -7255,18 +7106,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -7324,7 +7168,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -7498,7 +7341,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -8112,7 +7954,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -8224,22 +8065,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -8256,6 +8081,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -8275,18 +8103,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -8348,7 +8169,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -8524,7 +8344,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -9150,7 +8969,6 @@ struct VertexDescriptionInputs
      float3 ObjectSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 ObjectSpacePosition;
-     float4 uv0;
 };
 struct SurfaceDescriptionInputs
 {
@@ -9262,22 +9080,6 @@ VaryingsMeshToPS UnpackVaryingsMeshToPS(PackedVaryingsMeshToPS input)
 
 // Graph Functions
 
-void TerrainVertex_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut) {
-        PositionOut = PositionIn;
-
-        NormalOut = NormalIn;
-
-        TangentOut = TangentIn;
-
-        TessellationFactorOut = 1;
-
-        TessellationDisplacementOut = float3(0, 0, 0);
-
-
-
-        //$(VERTEX_COMPUTE)
-}
-
 void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut) {
         BaseColorOut = float3(1, 1, 1);
 
@@ -9294,6 +9096,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -9313,18 +9118,11 @@ struct VertexDescription
 VertexDescription VertexDescriptionFunction(VertexDescriptionInputs IN)
 {
     VertexDescription description = (VertexDescription)0;
-    float4 _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0 = IN.uv0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    float _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    float3 _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
-    TerrainVertex_float(IN.ObjectSpacePosition, IN.ObjectSpaceNormal, _UV_9b3b3ecab6be4f5a9ceb5546c9fcb448_Out_0, IN.ObjectSpaceTangent, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6, _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7);
-    description.Position = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_PositionOut_0;
-    description.Normal = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_NormalOut_1;
-    description.Tangent = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TangentOut_3;
-    description.TessellationFactor = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationFactorOut_6;
-    description.TessellationDisplacement = _TerrainVertexCustomFunction_f46a1070dd0f4c84ac95a47a6581936b_TessellationDisplacementOut_7;
+    description.Position = IN.ObjectSpacePosition;
+    description.Normal = IN.ObjectSpaceNormal;
+    description.Tangent = IN.ObjectSpaceTangent;
+    description.TessellationFactor = 1;
+    description.TessellationDisplacement = float3 (0, 0, 0);
     return description;
 }
 
@@ -9386,7 +9184,6 @@ VertexDescriptionInputs AttributesMeshToVertexDescriptionInputs(AttributesMesh i
     output.ObjectSpaceNormal = input.normalOS;
     output.ObjectSpaceTangent = input.tangentOS.xyz;
     output.ObjectSpacePosition = input.positionOS;
-    output.uv0 = input.uv0;
 
     return output;
 }
@@ -9562,7 +9359,6 @@ VertexDescriptionInputs VaryingsMeshToDSToVertexDescriptionInputs(VaryingsMeshTo
     output.ObjectSpaceNormal = TransformWorldToObjectNormal(input.normalWS);
     output.ObjectSpaceTangent = TransformWorldToObjectDir(input.tangentWS.xyz);
     output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
-    output.uv0 = input.texCoord0;
 
     return output;
 }
@@ -10156,6 +9952,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -10834,6 +10633,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 
@@ -11530,6 +11332,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AlphaOut = 1;
 
 
+        float DisplacementOut = -100.0f;
+
+
 
         //$(FRAGMENT_COMPUTE)
 }
@@ -12222,6 +12027,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AlphaOut = 1;
 
 
+        float DisplacementOut = -100.0f;
+
+
 
         //$(FRAGMENT_COMPUTE)
 }
@@ -12907,6 +12715,9 @@ void TerrainFragment_float(float3 PositionIn, float3 NormalIn, float4 UVIn, floa
         AmbientOcclusionOut = 1;
 
         AlphaOut = 1;
+
+
+        float DisplacementOut = -100.0f;
 
 
 

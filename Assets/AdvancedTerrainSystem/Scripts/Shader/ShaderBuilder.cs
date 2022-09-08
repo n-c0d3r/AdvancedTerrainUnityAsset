@@ -76,13 +76,12 @@ namespace AdvancedTerrainSystem
 
                 List<KeyValuePair<string, string>> placeholders = new List<KeyValuePair<string, string>> {
 
+                    //new KeyValuePair<string, string>(
+                    //    "$VERTEX_SHADER",
+                    //    "void VERTEX_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut)"),
                     new KeyValuePair<string, string>(
-                        "$VERTEX_SHADER",
-                        "void VERTEX_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut)"),
-                    new KeyValuePair<string, string>(
-                        "$FRAGMENT_SHADER",
-                        "void FRAGMENT_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut)")
-
+                        "$Main",//"$FRAGMENT_SHADER",
+                        "void FRAGMENT_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut, out float DisplacementOut, out float SmoothBlendOut)")
                 };
 
                 for (int i = 0; i < layer.m_Properties.Count; i++)
@@ -106,7 +105,7 @@ namespace AdvancedTerrainSystem
 
 
 
-        public void Build(Terrain terrain)
+        public Shader Build(Terrain terrain)
         {
 
             m_Terrain = terrain;
@@ -294,7 +293,7 @@ namespace AdvancedTerrainSystem
 
             string vcomputes = "";
 
-            for (int i = 0; i < m_Terrain.m_Layers.Count; i++)
+            for (int i = 0; i < 0;)//m_Terrain.m_Layers.Count; i++)
             {
 
                 vcomputes += @"	
@@ -312,7 +311,11 @@ namespace AdvancedTerrainSystem
 
 
 
-            string pcomputes = "";
+            string pcomputes = @"
+
+                    DisplacementOut = 0;
+
+";
 
             for (int i = 0; i < m_Terrain.m_Layers.Count; i++)
             {
@@ -326,10 +329,63 @@ namespace AdvancedTerrainSystem
                     float SmoothnessOut_" + i.ToString() + @" = 0; 
                     float AmbientOcclusionOut_" + i.ToString() + @" = 0; 
                     float AlphaOut_" + i.ToString() + @" = 0;
+                    float DisplacementOut_" + i.ToString() + @" = 0;
+                    float SmoothBlendOut_" + i.ToString() + @" = 0;
                 ";
                 pcomputes += System.Environment.NewLine;
-                pcomputes += "FRAGMENT_SHADER_" + i.ToString() + "(PositionIn,NormalIn,UVIn,TangentIn,BaseColorOut_" + i.ToString() + ",NormalOut_" + i.ToString() + ",BentNormalOut_" + i.ToString() + ",MetallicOut_" + i.ToString() + ",EmissionOut_" + i.ToString() + ",SmoothnessOut_" + i.ToString() + ",AmbientOcclusionOut_" + i.ToString() + @",AlphaOut_" + i.ToString() + @");";
+                pcomputes += "FRAGMENT_SHADER_" + i.ToString() + "(PositionIn,NormalIn,UVIn,TangentIn,BaseColorOut_" + i.ToString() + ",NormalOut_" + i.ToString() + ",BentNormalOut_" + i.ToString() + ",MetallicOut_" + i.ToString() + ",EmissionOut_" + i.ToString() + ",SmoothnessOut_" + i.ToString() + ",AmbientOcclusionOut_" + i.ToString() + @",AlphaOut_" + i.ToString() + ",DisplacementOut_" + i.ToString() + ",SmoothBlendOut_" + i.ToString() + @");";
                 pcomputes += System.Environment.NewLine;
+
+
+                if (i > 0)
+                    pcomputes += @"	
+
+                        {
+
+                            float3 BaseColorSmoothBlend = BaseColorOut;
+                            float3 NormalSmoothBlend = NormalOut;
+                            float3 BentNormalSmoothBlend = BentNormalOut;
+                            float MetallicSmoothBlend = MetallicOut;
+                            float3 EmissionSmoothBlend = EmissionOut; 
+                            float SmoothnessSmoothBlend = SmoothnessOut; 
+                            float AmbientOcclusionSmoothBlend = AmbientOcclusionOut; 
+                            float AlphaSmoothBlend = AlphaOut;
+
+                            float3 BaseColorHardBlend = BaseColorOut;
+                            float3 NormalHardBlend = NormalOut;
+                            float3 BentNormalHardBlend = BentNormalOut;
+                            float MetallicHardBlend = MetallicOut;
+                            float3 EmissionHardBlend = EmissionOut; 
+                            float SmoothnessHardBlend = SmoothnessOut; 
+                            float AmbientOcclusionHardBlend = AmbientOcclusionOut; 
+                            float AlphaHardBlend = AlphaOut;
+
+                            if(DisplacementOut <= DisplacementOut_" + i.ToString() + @"){
+
+                                BaseColorHardBlend = BaseColorOut_" + i.ToString() + @";
+                                NormalHardBlend = NormalOut_" + i.ToString() + @";
+                                BentNormalHardBlend = BentNormalOut_" + i.ToString() + @";
+                                MetallicHardBlend = MetallicOut_" + i.ToString() + @";
+                                EmissionHardBlend = EmissionOut_" + i.ToString() + @";
+                                SmoothnessHardBlend = SmoothnessOut_" + i.ToString() + @";
+                                AmbientOcclusionHardBlend = AmbientOcclusionOut_" + i.ToString() + @";
+                                AlphaHardBlend = AlphaOut_" + i.ToString() + @";
+
+                                DisplacementOut = DisplacementOut_" + i.ToString() + @";
+
+                            }
+
+                            BaseColorOut = lerp( BaseColorHardBlend, BaseColorSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+                            NormalOut = lerp( NormalHardBlend, NormalSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+                            BentNormalOut = lerp( BentNormalHardBlend, BentNormalSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+                            MetallicOut = lerp( MetallicHardBlend, MetallicSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+                            EmissionOut = lerp( EmissionHardBlend, EmissionSmoothBlend, SmoothBlendOut_" + i.ToString() + @"); 
+                            SmoothnessOut = lerp( SmoothnessHardBlend, SmoothnessSmoothBlend, SmoothBlendOut_" + i.ToString() + @"); 
+                            AmbientOcclusionOut = lerp( AmbientOcclusionHardBlend, AmbientOcclusionSmoothBlend, SmoothBlendOut_" + i.ToString() + @"); 
+                            AlphaOut = lerp( AlphaHardBlend, AlphaSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+
+                        }
+                    ";
 
             }
 
@@ -353,6 +409,9 @@ namespace AdvancedTerrainSystem
 
             WriteFile(absCompiledShaderPath, compiledShaderContent);
 
+            Shader shader = (Shader)AssetDatabase.LoadAssetAtPath(compiledShaderPath, typeof(Shader));
+
+            return shader;
         }
 
     }

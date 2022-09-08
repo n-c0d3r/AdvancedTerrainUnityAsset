@@ -20,7 +20,7 @@ namespace AdvancedTerrainSystem
 
 
 
-        public virtual void Apply2Material(Material material, uint layerIndex)
+        public override void Apply2Material(Material material, uint layerIndex)
         {
 
             material.SetVector(MatPropReferenceWithLayerIndex(layerIndex), Vector2_Value);

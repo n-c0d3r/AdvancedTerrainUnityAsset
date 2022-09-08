@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1858
     height: 1037
   m_ShowMode: 4
-  m_Title: Blend2Layers
+  m_Title: Project
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -39,12 +39,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1555
+    x: 1554
     y: 0
-    width: 303
+    width: 304
     height: 427
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 29}
   m_Panes:
   - {fileID: 29}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 90
+  controlID: 88
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 91
+  controlID: 89
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 92
+  controlID: 90
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: MaterialGraphEditWindow
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -214,16 +214,16 @@ MonoBehaviour:
     y: 0
     width: 1470
     height: 560
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 14}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 15}
   - {fileID: 14}
-  m_Selected: 3
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 2
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,8 +243,8 @@ MonoBehaviour:
     y: 0
     width: 388
     height: 560
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -296,7 +296,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 911
+    width: 910
     height: 427
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
@@ -323,12 +323,12 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 911
+    x: 910
     y: 0
     width: 644
     height: 427
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 26}
   m_Panes:
   - {fileID: 26}
@@ -539,32 +539,7 @@ MonoBehaviour:
     \"afb6075dee81421fbe55b5c5420a81f7\"\n                },\n                \"m_SlotId\":
     0\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
     {\n                    \"m_Id\": \"6ae1e2e243a3486e80193448e1e8c91a\"\n               
-    },\n                \"m_SlotId\": 10\n            }\n        },\n        {\n           
-    \"m_OutputSlot\": {\n                \"m_Node\": {\n                    \"m_Id\":
-    \"f46a1070dd0f4c84ac95a47a6581936b\"\n                },\n                \"m_SlotId\":
-    0\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
-    {\n                    \"m_Id\": \"efc9c0895f2e49bcbc4e3fb8ba9a70ac\"\n               
-    },\n                \"m_SlotId\": 0\n            }\n        },\n        {\n           
-    \"m_OutputSlot\": {\n                \"m_Node\": {\n                    \"m_Id\":
-    \"f46a1070dd0f4c84ac95a47a6581936b\"\n                },\n                \"m_SlotId\":
-    1\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
-    {\n                    \"m_Id\": \"3de52965f47a4713b1f17a8c2478c3ae\"\n               
-    },\n                \"m_SlotId\": 0\n            }\n        },\n        {\n           
-    \"m_OutputSlot\": {\n                \"m_Node\": {\n                    \"m_Id\":
-    \"f46a1070dd0f4c84ac95a47a6581936b\"\n                },\n                \"m_SlotId\":
-    3\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
-    {\n                    \"m_Id\": \"3c8d50309cd2494ab972fb5a079e7df4\"\n               
-    },\n                \"m_SlotId\": 0\n            }\n        },\n        {\n           
-    \"m_OutputSlot\": {\n                \"m_Node\": {\n                    \"m_Id\":
-    \"f46a1070dd0f4c84ac95a47a6581936b\"\n                },\n                \"m_SlotId\":
-    6\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
-    {\n                    \"m_Id\": \"788c87fc32b2482e92498be871d096b5\"\n               
-    },\n                \"m_SlotId\": 0\n            }\n        },\n        {\n           
-    \"m_OutputSlot\": {\n                \"m_Node\": {\n                    \"m_Id\":
-    \"f46a1070dd0f4c84ac95a47a6581936b\"\n                },\n                \"m_SlotId\":
-    7\n            },\n            \"m_InputSlot\": {\n                \"m_Node\":
-    {\n                    \"m_Id\": \"3064074922544286883da348dcc27bd0\"\n               
-    },\n                \"m_SlotId\": 0\n            }\n        }\n    ],\n    \"m_VertexContext\":
+    },\n                \"m_SlotId\": 10\n            }\n        }\n    ],\n    \"m_VertexContext\":
     {\n        \"m_Position\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n       
     },\n        \"m_Blocks\": [\n            {\n                \"m_Id\": \"efc9c0895f2e49bcbc4e3fb8ba9a70ac\"\n           
     },\n            {\n                \"m_Id\": \"3de52965f47a4713b1f17a8c2478c3ae\"\n           
@@ -869,7 +844,8 @@ MonoBehaviour:
     \"fc4cb2e0fbecdb74a977f831414df949\",\n    \"m_FunctionBody\": \"\\tBaseColorOut
     = float3(1, 1, 1);\\r\\n\\tNormalOut = NormalIn;\\r\\n\\tBentNormalOut = float3(0,
     1, 0);\\r\\n\\tMetallicOut = 0;\\r\\n\\tEmissionOut = float3(0, 0, 0);\\r\\n\\tSmoothnessOut
-    = 0.5f;\\r\\n\\tAmbientOcclusionOut = 1;\\r\\n\\tAlphaOut = 1;\\r\\n\\r\\n\\t//$(FRAGMENT_COMPUTE)\"\n}\n\n{\n   
+    = 0.5f;\\r\\n\\tAmbientOcclusionOut = 1;\\r\\n\\tAlphaOut = 1;\\r\\n\\n\\tfloat
+    DisplacementOut = -100.0f;\\r\\n\\r\\n\\t//$(FRAGMENT_COMPUTE)\"\n}\n\n{\n   
     \"m_SGVersion\": 0,\n    \"m_Type\": \"UnityEditor.ShaderGraph.Vector3MaterialSlot\",\n   
     \"m_ObjectId\": \"72090162e2364ee596667465bf816f4c\",\n    \"m_Id\": 0,\n   
     \"m_DisplayName\": \"Out\",\n    \"m_SlotType\": 1,\n    \"m_Hidden\": false,\n   
@@ -1854,13 +1830,13 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -10.02894, y: 10.690544, z: 1.9657478}
+    m_Target: {x: -462.0083, y: -129.88281, z: -862.0257}
     speed: 2
-    m_Value: {x: -10.02894, y: 10.690544, z: 1.9657478}
+    m_Value: {x: -462.0083, y: -129.88281, z: -862.0257}
   m_RenderMode: 0
   m_CameraMode:
-    drawMode: 0
-    name: Shaded
+    drawMode: 2
+    name: Shaded Wireframe
     section: Shading Mode
   m_ValidateTrueMetals: 0
   m_DoValidateTrueMetals: 0
@@ -1903,13 +1879,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.061589018, y: 0.90286136, z: -0.1381224, w: -0.4025222}
+    m_Target: {x: -0.01042802, y: 0.98636985, z: -0.1493862, w: -0.068719864}
     speed: 2
-    m_Value: {x: -0.061794475, y: 0.90223235, z: -0.13802616, w: -0.40386522}
+    m_Value: {x: -0.010651699, y: 0.98622966, z: -0.14936493, w: -0.07019678}
   m_Size:
-    m_Target: 3.9008436
+    m_Target: 286.80133
     speed: 2
-    m_Value: 3.9008436
+    m_Value: 274.45102
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2858,7 +2834,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 29042
+  m_LastSelectedObjectID: 29208
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -2949,7 +2925,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 62
     y: 633
-    width: 910
+    width: 909
     height: 406
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -2978,7 +2954,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 62
     y: 633
-    width: 910
+    width: 909
     height: 406
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -2997,22 +2973,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AdvancedTerrainSystem/Shaders
+    - Assets/AdvancedTerrainSystem/Terrains/GitIgnores/DemoTerrain/Shaders
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 56
   m_LastFolders:
-  - Assets/AdvancedTerrainSystem/Shaders
+  - Assets/AdvancedTerrainSystem/Terrains/GitIgnores/DemoTerrain/Shaders
   m_LastFoldersGridSize: 56
   m_LastProjectPath: D:\NCoder\AdvancedTerrainUnityAsset
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 128.48059}
-    m_SelectedIDs: ee710000
-    m_LastClickedID: 29166
-    m_ExpandedIDs: 00000000e0710000e2710000e4710000e6710000e8710000ea710000ec710000ee710000f071000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 178}
+    m_SelectedIDs: 12730000
+    m_LastClickedID: 29458
+    m_ExpandedIDs: 00000000e0720000e2720000e4720000e6720000e8720000ea720000ec720000ee720000f072000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3040,7 +3016,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e0710000e2710000e4710000e6710000e8710000ea710000ec710000ee710000f0710000
+    m_ExpandedIDs: 00000000e0720000e2720000e4720000e6720000e8720000ea720000ec720000ee720000f0720000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3161,8 +3137,8 @@ MonoBehaviour:
   m_SearchText: 
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f45287f0
-    m_LastClickedID: -259566860
+    m_SelectedIDs: a01a5fa6
+    m_LastClickedID: -1503716704
     m_ExpandedIDs: d7dddea2a01a5fa618383fbe7d2477c453336be20000000070092d36
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -3202,7 +3178,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 973
+    x: 972
     y: 633
     width: 642
     height: 406
@@ -3217,7 +3193,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 243
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -3302,9 +3278,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1617
+    x: 1616
     y: 633
-    width: 302
+    width: 303
     height: 406
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
@@ -3313,9 +3289,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a2760000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 34fbffff72710000
+      m_SelectedIDs: 18720000
+      m_LastClickedID: 29208
+      m_ExpandedIDs: 36fbffffa4710000b67100005a720000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
