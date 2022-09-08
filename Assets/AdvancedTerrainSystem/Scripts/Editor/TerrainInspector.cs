@@ -22,6 +22,10 @@ namespace AdvancedTerrainSystem
 
         };
 
+        private ShaderBuilder m_ShaderBuilder = new ShaderBuilder();
+
+
+
         public string m_CreateDefaultLayerBtn_DisplayedOption
         {
 
@@ -44,6 +48,31 @@ namespace AdvancedTerrainSystem
 
 
             DrawDefaultInspector();
+
+
+
+            if(false){
+
+                GUILayout.Space(80);
+
+                for (int i = 0; i < terrain.m_Layers.Count; i++)
+                {
+
+                    var layer = terrain.m_Layers[i];
+
+                    EditorGUILayout.LabelField("Layer " + i.ToString());
+
+                    var editor = Editor.CreateEditor(layer);
+
+                    editor.OnInspectorGUI();
+
+                    GUILayout.Space(40);
+
+                }
+
+                GUILayout.Space(80);
+
+            }
 
 
 
@@ -111,7 +140,7 @@ namespace AdvancedTerrainSystem
 
             Terrain terrain = (Terrain)target;
 
-            UpdateMaterial();
+
 
         }
 
@@ -158,11 +187,59 @@ namespace AdvancedTerrainSystem
 
         }
 
+
+
+        public void BuildMaterialsForNode(QuadtreeNode node, Terrain terrain)
+        {
+
+
+            if (node.currentNodeLevel == terrain.QuadtreeLevelCount - 1)
+            {
+
+                Material material = new Material(terrain.m_Shader);
+
+                node.chunkTerrain.materialTemplate = material;
+
+            }
+
+
+            if (node.childs != null)
+                foreach (QuadtreeNode childNode in node.childs)
+                {
+
+                    BuildMaterialsForNode(childNode, terrain);
+
+                }
+
+        }
+
         public void GenerateQuadtreeAndChunks()
         {
 
             Terrain terrain = (Terrain)target;
-            QuadtreeNode node = new QuadtreeNode(terrain.gameObject, terrain.QuadtreeLevelCount, 0, terrain);
+
+            bool b = false;
+
+            for (int i = 0; i < terrain.transform.childCount; ++i)
+            {
+
+                Transform child = terrain.transform.GetChild(i);
+
+                if (child.gameObject.name == "RootNode")
+                {
+
+                   DestroyImmediate(child.gameObject);
+
+                }
+
+            }
+
+            GameObject rnGObj = new GameObject("RootNode");
+
+            rnGObj.transform.parent = terrain.transform;
+
+            terrain.m_RootNode = new QuadtreeNode(rnGObj, terrain.QuadtreeLevelCount, 0, terrain);
+
         }
 
 
@@ -172,16 +249,9 @@ namespace AdvancedTerrainSystem
 
             Terrain terrain = (Terrain)target;
 
+            terrain.m_Shader = m_ShaderBuilder.Build(terrain);
 
-
-        }
-
-        public void UpdateMaterial()
-        {
-
-            Terrain terrain = (Terrain)target;
-
-
+            BuildMaterialsForNode(terrain.m_RootNode, terrain);
 
         }
 

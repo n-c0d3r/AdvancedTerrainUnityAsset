@@ -7,14 +7,8 @@ using UnityEngine;
 
 namespace AdvancedTerrainSystem
 {
-    [Serializable]
-    public class TerrainSettings
-    {
-        public uint width;
-        public uint length;
-        public uint height;
-    }
 
+    [ExecuteInEditMode]
     public class Terrain : MonoBehaviour
     {
         
@@ -38,7 +32,7 @@ namespace AdvancedTerrainSystem
 
         }
 
-        private uint ChunkCountX
+        public uint ChunkCountX
         {
 
             get {
@@ -49,7 +43,7 @@ namespace AdvancedTerrainSystem
 
         }
 
-        private uint ChunkCount
+        public uint ChunkCount
         {
 
             get
@@ -93,51 +87,152 @@ namespace AdvancedTerrainSystem
 
         }
 
-        private ShaderBuilder m_ShaderBuilder;
-
-        public ShaderBuilder ShaderBuilder
-        {
-
-            get
-            {
-
-                return m_ShaderBuilder;
-
-            }
-
-        }
+        public Shader m_Shader;
 
         public List<Layer> m_Layers;
+
+        [HideInInspector]
+        public QuadtreeNode m_RootNode;
 
 
 
         private void Awake()
         {
 
-            m_ShaderBuilder = new ShaderBuilder(this);
+
 
         }
 
         private void Start()
         {
 
-            Debug.Log(m_ShaderBuilder.Build());
+            StartCoroutine(UpdateChunksVisibilityCoroutine());
 
         }
 
         private void Update()
         {
 
-            UpdateChunksVisibility(Camera.allCameras);
+            if(Application.isEditor)
+                UpdateMaterialsForNode(m_RootNode);
+
+        }
+
+        public void UpdateMaterialsForNode(QuadtreeNode node)
+        {
+
+
+            if (node.currentNodeLevel == QuadtreeLevelCount - 1)
+            {
+
+                Material material = node.chunkTerrain.materialTemplate;
+
+                for (uint i = 0; i < m_Layers.Count; ++i)
+                {
+
+                    Layer layer = m_Layers[(int)i];
+
+
+
+                    foreach (LayerProperty prop in layer.m_Properties)
+                    {
+
+                        prop.Apply2Material(material, i);
+
+                    }
+
+                }
+
+            }
+
+
+
+            if (node.childs != null)
+                foreach (QuadtreeNode childNode in node.childs)
+                {
+
+                    UpdateMaterialsForNode(childNode);
+
+                }
 
         }
 
 
 
+        IEnumerator UpdateChunksVisibilityCoroutine()
+        {
+
+            while (true)
+            {
+
+                UpdateChunksVisibility(Camera.allCameras);
+
+                yield return new WaitForSeconds(1.0f);
+
+            }
+
+            yield return null;
+
+        }
+
+
+
+        public void UpdateQuadtreeNodeVisibility(QuadtreeNode node, Camera[] cameras)
+        {
+
+            Vector3 pos = node.gobj.transform.position;
+
+            float nodeRadius = Mathf.Sqrt(node.nodeWidth * node.nodeWidth + node.nodeLength * node.nodeLength);
+
+            bool b = false;
+
+            foreach (Camera camera in cameras)
+            {
+
+                Vector3 cpos = camera.transform.position;
+
+                if (
+
+                    ((pos - cpos).magnitude <= camera.farClipPlane + nodeRadius)
+
+                )
+                {
+
+                    b = true;
+
+                    break;
+
+                }
+
+            }
+
+            if (b)
+            {
+
+                node.gobj.SetActive(true);
+
+                if(node.childs != null)
+                    foreach (QuadtreeNode childNode in node.childs)
+                    {
+
+                        UpdateQuadtreeNodeVisibility(childNode, cameras);
+
+                    }
+
+            }
+            else
+            {
+
+                node.gobj.SetActive(false);
+
+            }
+
+        }
+
         public void UpdateChunksVisibility(Camera[] cameras)
         {
 
-
+            UpdateQuadtreeNodeVisibility(m_RootNode, cameras);
 
         }
 

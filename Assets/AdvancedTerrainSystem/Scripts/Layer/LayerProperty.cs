@@ -252,7 +252,7 @@ namespace AdvancedTerrainSystem
         public string MatPropReferenceWithLayerIndex(uint layerIndex)
         {
 
-            return "_" + Name + "_" + layerIndex.ToString();
+            return Name + "_" + layerIndex.ToString();
         }
 
 
@@ -260,7 +260,57 @@ namespace AdvancedTerrainSystem
         public virtual void Apply2Material(Material material, uint layerIndex)
         {
 
+            /*
+             
+            "Color",
 
+            "HDRColor",
+
+            "Float",
+
+            "Matrix4x4",
+
+            "Texture2D",
+
+            "Texture3D",
+
+            "Vector2",
+
+            "Vector3",
+
+            "Vector4"
+             
+             */
+
+            switch (TypeName)
+            {
+                case "Color":
+                    material.SetColor(MatPropReferenceWithLayerIndex(layerIndex), Color_Value);
+                    break;
+                case "Float":
+                    material.SetFloat(MatPropReferenceWithLayerIndex(layerIndex), Float_Value);
+                    break;
+                case "Matrix4x4":
+                    material.SetMatrix(MatPropReferenceWithLayerIndex(layerIndex), Matrix4x4_Value);
+                    break;
+                case "Texture2D":
+                    material.SetTexture(MatPropReferenceWithLayerIndex(layerIndex), Texture2D_Value);
+                    break;
+                case "Texture3D":
+                    material.SetTexture(MatPropReferenceWithLayerIndex(layerIndex), Texture3D_Value);
+                    break;
+                case "Vector2":
+                    material.SetVector(MatPropReferenceWithLayerIndex(layerIndex), Vector2_Value);
+                    break;
+                case "Vector3":
+                    material.SetVector(MatPropReferenceWithLayerIndex(layerIndex), Vector3_Value);
+                    break;
+                case "Vector4":
+                    material.SetVector(MatPropReferenceWithLayerIndex(layerIndex), Vector4_Value);
+                    break;
+                default:
+                    break;
+            }
 
         }
 

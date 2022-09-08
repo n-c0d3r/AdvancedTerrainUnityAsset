@@ -311,76 +311,6 @@
                 },
                 "m_SlotId": 10
             }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f46a1070dd0f4c84ac95a47a6581936b"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "efc9c0895f2e49bcbc4e3fb8ba9a70ac"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f46a1070dd0f4c84ac95a47a6581936b"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "3de52965f47a4713b1f17a8c2478c3ae"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f46a1070dd0f4c84ac95a47a6581936b"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "3c8d50309cd2494ab972fb5a079e7df4"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f46a1070dd0f4c84ac95a47a6581936b"
-                },
-                "m_SlotId": 6
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "788c87fc32b2482e92498be871d096b5"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "f46a1070dd0f4c84ac95a47a6581936b"
-                },
-                "m_SlotId": 7
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "3064074922544286883da348dcc27bd0"
-                },
-                "m_SlotId": 0
-            }
         }
     ],
     "m_VertexContext": {
@@ -515,7 +445,7 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "$(PROPERTIES)",
     "m_DefaultReferenceName": "__PROPERTIES",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "__ATS_PROPERTIES",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
@@ -1377,7 +1307,7 @@
     "m_SourceType": 1,
     "m_FunctionName": "TerrainFragment",
     "m_FunctionSource": "fc4cb2e0fbecdb74a977f831414df949",
-    "m_FunctionBody": "\tBaseColorOut = float3(1, 1, 1);\r\n\tNormalOut = NormalIn;\r\n\tBentNormalOut = float3(0, 1, 0);\r\n\tMetallicOut = 0;\r\n\tEmissionOut = float3(0, 0, 0);\r\n\tSmoothnessOut = 0.5f;\r\n\tAmbientOcclusionOut = 1;\r\n\tAlphaOut = 1;\r\n\r\n\t//$(FRAGMENT_COMPUTE)"
+    "m_FunctionBody": "\tBaseColorOut = float3(1, 1, 1);\r\n\tNormalOut = NormalIn;\r\n\tBentNormalOut = float3(0, 1, 0);\r\n\tMetallicOut = 0;\r\n\tEmissionOut = float3(0, 0, 0);\r\n\tSmoothnessOut = 0.5f;\r\n\tAmbientOcclusionOut = 1;\r\n\tAlphaOut = 1;\r\n\n\tfloat DisplacementOut = -100.0f;\r\n\r\n\t//$(FRAGMENT_COMPUTE)"
 }
 
 {
