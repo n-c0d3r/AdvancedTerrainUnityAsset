@@ -266,7 +266,8 @@ namespace AdvancedTerrainSystem
 
                     terrain.m_RootNode.CopyFromBackup(oldRootNode);
 
-                    DestroyImmediate(oldRootNode.gobj);
+                    if(oldRootNode.numLevel == terrain.m_RootNode.numLevel)
+                        DestroyImmediate(oldRootNode.gobj);
 
                 }
 
