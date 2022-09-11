@@ -133,6 +133,20 @@ namespace AdvancedTerrainSystem
 
             }
 
+
+
+            //Build All Btn
+            {
+
+                if (GUILayout.Button("Build All"))
+                {
+
+                    BuildAll();
+
+                }
+
+            }
+
         }
 
         public void OnSceneGUI()
@@ -203,7 +217,7 @@ namespace AdvancedTerrainSystem
             }
 
 
-            if (node.childs != null)
+            if (!node.IsLeafNode())
                 foreach (QuadtreeNode childNode in node.childs)
                 {
 
@@ -218,27 +232,47 @@ namespace AdvancedTerrainSystem
 
             Terrain terrain = (Terrain)target;
 
-            bool b = false;
 
-            for (int i = 0; i < terrain.transform.childCount; ++i)
+
+
+            terrain.m_TerrainLayers = new TerrainLayer[terrain.m_Layers.Count];
+
+            for (int i = 0; i < terrain.m_Layers.Count; i++)
             {
 
-                Transform child = terrain.transform.GetChild(i);
+                terrain.m_TerrainLayers[i] = new UnityEngine.TerrainLayer();
 
-                if (child.gameObject.name == "RootNode")
+            }
+
+
+
+            QuadtreeNode oldRootNode = terrain.m_RootNode;
+
+
+
+            GameObject rnGObj = new GameObject("IntermediateRootNode");
+
+            rnGObj.transform.parent = terrain.transform;
+
+            terrain.m_RootNode = new QuadtreeNode(rnGObj, terrain.QuadtreeLevelCount, 0, terrain);
+
+
+
+            if(oldRootNode != null)
+            {
+
+                if(oldRootNode.gobj != null)
                 {
 
-                   DestroyImmediate(child.gameObject);
+                    terrain.m_RootNode.CopyFromBackup(oldRootNode);
+
+                    DestroyImmediate(oldRootNode.gobj);
 
                 }
 
             }
 
-            GameObject rnGObj = new GameObject("RootNode");
-
-            rnGObj.transform.parent = terrain.transform;
-
-            terrain.m_RootNode = new QuadtreeNode(rnGObj, terrain.QuadtreeLevelCount, 0, terrain);
+            rnGObj.name = "RootNode";
 
         }
 
@@ -252,6 +286,17 @@ namespace AdvancedTerrainSystem
             terrain.m_Shader = m_ShaderBuilder.Build(terrain);
 
             BuildMaterialsForNode(terrain.m_RootNode, terrain);
+
+        }
+
+
+
+        public void BuildAll()
+        {
+
+            GenerateQuadtreeAndChunks();
+
+            BuildShader();
 
         }
 

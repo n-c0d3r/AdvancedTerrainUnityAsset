@@ -118,10 +118,47 @@ namespace AdvancedTerrainSystem
 
             string propsStr = "";
 
+            char[] alphaMapChannelNames = new char[m_Terrain.m_Layers.Count];
+            char currAlphaMapChannelName = 'z';
+
             for (int i = 0; i < m_Terrain.m_Layers.Count; i++)
             {
 
                 Layer layer = m_Terrain.m_Layers[i];
+
+
+
+
+
+                switch (currAlphaMapChannelName) {
+
+                    case 'x':
+                        currAlphaMapChannelName = 'y';
+                        break;
+
+                    case 'y':
+                        currAlphaMapChannelName = 'z';
+                        break;
+
+                    case 'z':
+                        currAlphaMapChannelName = 'w';
+                        break;
+
+                    case 'w':
+                        currAlphaMapChannelName = 'x';
+                        break;
+
+                    default:
+                        break;
+
+                }
+
+                alphaMapChannelNames[i] = currAlphaMapChannelName;
+
+
+
+
+
 
                 for (int j = 0; j < layer.m_Properties.Count; j++)
                 {
@@ -315,10 +352,19 @@ namespace AdvancedTerrainSystem
 
                     DisplacementOut = 0;
 
+                    float4 UV = UVIn;
+
 ";
 
             for (int i = 0; i < m_Terrain.m_Layers.Count; i++)
             {
+
+                char alphaChannelName = alphaMapChannelNames[i];
+
+                int alphaMapIndex = i / 4;
+
+
+
 
                 pcomputes += @"	
                     float3 BaseColorOut_" + i.ToString() + @" = float3(0,0,0);
@@ -342,7 +388,9 @@ namespace AdvancedTerrainSystem
 
                         {
 
-                            float3 BaseColorSmoothBlend = BaseColorOut;
+                            float Alpha = SAMPLE_TEXTURE2D(ALPHAMAP_" + alphaMapIndex + @", SamplerState_Linear_Repeat, UV)." + alphaChannelName + @";
+
+                            float3 BaseColorSmoothBlend = lerp(BaseColorOut, BaseColorOut_" + i.ToString() + @", Alpha);
                             float3 NormalSmoothBlend = NormalOut;
                             float3 BentNormalSmoothBlend = BentNormalOut;
                             float MetallicSmoothBlend = MetallicOut;
@@ -386,8 +434,33 @@ namespace AdvancedTerrainSystem
 
                         }
                     ";
+                else
+                    pcomputes += @"	
+
+                        {
+
+                            BaseColorOut = BaseColorOut_" + i.ToString() + @";
+                            NormalOut = NormalOut_" + i.ToString() + @";
+                            BentNormalOut = BentNormalOut_" + i.ToString() + @";
+                            MetallicOut = MetallicOut_" + i.ToString() + @";
+                            EmissionOut = EmissionOut_" + i.ToString() + @";
+                            SmoothnessOut = SmoothnessOut_" + i.ToString() + @";
+                            AmbientOcclusionOut = AmbientOcclusionOut_" + i.ToString() + @";
+                            AlphaOut = AlphaOut_" + i.ToString() + @";
+
+                            DisplacementOut = DisplacementOut_" + i.ToString() + @";
+
+                        }
+                    ";
 
             }
+
+            pcomputes += @"
+
+//BaseColorOut = SAMPLE_TEXTURE2D(ALPHAMAP_0, SamplerState_Linear_Repeat, UV).xyz;
+//BaseColorOut = UVIn;
+
+";
 
 
 
