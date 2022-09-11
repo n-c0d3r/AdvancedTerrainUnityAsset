@@ -13,6 +13,8 @@ namespace AdvancedTerrainSystem
         public float width;
         public float length;
         public float height;
+        public int heightMapRes = 513;
+        public int alphaMapRes = 512;
     }
 
 }

@@ -273,11 +273,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -1206,11 +1207,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -2101,11 +2103,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -3052,11 +3055,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -4023,11 +4027,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -5004,11 +5009,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -5942,11 +5948,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -6904,11 +6911,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -7883,11 +7891,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -8895,11 +8904,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -9887,11 +9897,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -10571,11 +10582,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -11265,11 +11277,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -11962,11 +11975,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS
@@ -12651,11 +12665,12 @@ float _RefractionModel;
 CBUFFER_END
 
 // Object and Global properties
+SAMPLER(SamplerState_Linear_Repeat);
 
-    // -- Property used by ScenePickingPass
-    #ifdef SCENEPICKINGPASS
-    float4 _SelectionID;
-    #endif
+// -- Property used by ScenePickingPass
+#ifdef SCENEPICKINGPASS
+float4 _SelectionID;
+#endif
 
 // -- Properties used by SceneSelectionPass
 #ifdef SCENESELECTIONPASS

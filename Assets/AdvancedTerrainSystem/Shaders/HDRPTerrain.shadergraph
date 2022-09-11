@@ -5,6 +5,9 @@
     "m_Properties": [
         {
             "m_Id": "078ede83027643128f3eb5ba574dec02"
+        },
+        {
+            "m_Id": "62c233e1fea04ab2b95ecc9f6702e931"
         }
     ],
     "m_Keywords": [],
@@ -1191,6 +1194,32 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.SamplerStateShaderProperty",
+    "m_ObjectId": "62c233e1fea04ab2b95ecc9f6702e931",
+    "m_Guid": {
+        "m_GuidSerialized": "d10eca96-a913-45df-88a6-f89accb9bfbc"
+    },
+    "m_Name": "$(ALPHAMAP_SAMPLER)",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "$(ALPHAMAP_SAMPLER)",
+    "m_DefaultReferenceName": "ALPHAMAP_SAMPLER",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": false,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_filter": 0,
+        "m_wrap": 0,
+        "m_anisotropic": 0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "6828b2bd8b4b425297cf2d7d7ab41e47",
@@ -1471,6 +1500,9 @@
     "m_ChildObjectList": [
         {
             "m_Id": "078ede83027643128f3eb5ba574dec02"
+        },
+        {
+            "m_Id": "62c233e1fea04ab2b95ecc9f6702e931"
         }
     ]
 }

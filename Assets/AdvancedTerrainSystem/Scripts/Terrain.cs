@@ -91,8 +91,9 @@ namespace AdvancedTerrainSystem
 
         public List<Layer> m_Layers;
 
-        [HideInInspector]
+        //[HideInInspector]
         public QuadtreeNode m_RootNode;
+        public UnityEngine.TerrainLayer[] m_TerrainLayers = new UnityEngine.TerrainLayer[0];
 
 
 
@@ -113,8 +114,11 @@ namespace AdvancedTerrainSystem
         private void Update()
         {
 
-            if(Application.isEditor)
+            if(!Application.isPlaying)
                 UpdateMaterialsForNode(m_RootNode);
+
+            if (!Application.isPlaying)
+                UpdateChunksAlphaMaps();
 
         }
 
@@ -127,19 +131,30 @@ namespace AdvancedTerrainSystem
 
                 Material material = node.chunkTerrain.materialTemplate;
 
-                for (uint i = 0; i < m_Layers.Count; ++i)
+                try
                 {
 
-                    Layer layer = m_Layers[(int)i];
-
-
-
-                    foreach (LayerProperty prop in layer.m_Properties)
+                    for (uint i = 0; i < m_Layers.Count; ++i)
                     {
 
-                        prop.Apply2Material(material, i);
+                        Layer layer = m_Layers[(int)i];
+
+
+
+                        foreach (LayerProperty prop in layer.m_Properties)
+                        {
+
+                            prop.Apply2Material(material, i);
+
+                        }
 
                     }
+
+                }
+                catch
+                {
+
+
 
                 }
 
@@ -147,7 +162,7 @@ namespace AdvancedTerrainSystem
 
 
 
-            if (node.childs != null)
+            if (!node.IsLeafNode())
                 foreach (QuadtreeNode childNode in node.childs)
                 {
 
@@ -159,19 +174,91 @@ namespace AdvancedTerrainSystem
 
 
 
+        IEnumerator UpdateChunksAlphaMapsCoroutine()
+        {
+
+            UpdateChunksAlphaMaps();
+
+            yield return null;
+
+        }
+
+
+
         IEnumerator UpdateChunksVisibilityCoroutine()
         {
 
             while (true)
             {
 
-                UpdateChunksVisibility(Camera.allCameras);
+                if (Application.isPlaying)
+                    UpdateChunksVisibility(Camera.allCameras);
 
                 yield return new WaitForSeconds(1.0f);
 
             }
 
             yield return null;
+
+        }
+
+
+
+        public void UpdateQuadtreeNodeAlphaMaps(QuadtreeNode node)
+        {
+
+            if (!Application.isPlaying)
+            {
+
+                if (!node.IsLeafNode())
+                {
+
+                    foreach (QuadtreeNode childNode in node.childs)
+                    {
+
+                        UpdateQuadtreeNodeAlphaMaps(childNode);
+
+                    }
+
+                }
+                else
+                {
+                    try
+                    {
+
+                        for (int i = 0; i < m_Layers.Count; i += 4)
+                        {
+
+                            int alphaMapIndex = i / 4;
+
+                            node.chunkTerrain.materialTemplate.SetTexture("ALPHAMAP_" + alphaMapIndex.ToString(), node.chunkTerrain.terrainData.GetAlphamapTexture(alphaMapIndex));
+
+                        }
+
+                    }
+                    catch
+                    {
+
+
+
+                    }
+
+                }
+
+            }
+            else
+            {
+
+
+
+            }
+
+        }
+
+        public void UpdateChunksAlphaMaps()
+        {
+
+            UpdateQuadtreeNodeAlphaMaps(m_RootNode);
 
         }
 
@@ -211,7 +298,7 @@ namespace AdvancedTerrainSystem
 
                 node.gobj.SetActive(true);
 
-                if(node.childs != null)
+                if(!node.IsLeafNode())
                     foreach (QuadtreeNode childNode in node.childs)
                     {
 
