@@ -18,15 +18,6 @@ namespace AdvancedTerrainSystem
 
         }
 
-
-
-        public override void Apply2Material(Material material, uint layerIndex)
-        {
-
-            material.SetTexture(MatPropReferenceWithLayerIndex(layerIndex), Texture2D_Value);
-
-        }
-
     }
 
 }

@@ -210,6 +210,8 @@ namespace AdvancedTerrainSystem
             if (node.currentNodeLevel == terrain.QuadtreeLevelCount - 1)
             {
 
+                if (node.chunkTerrain.materialTemplate != null) DestroyImmediate(node.chunkTerrain.materialTemplate);
+
                 Material material = new Material(terrain.m_Shader);
 
                 node.chunkTerrain.materialTemplate = material;

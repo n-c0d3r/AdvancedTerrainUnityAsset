@@ -183,21 +183,21 @@ namespace AdvancedTerrainSystem
 
                         case "Texture2D":
                             UShaderType = "2D";
-                            ValueSTR = '"' + '"' + " {}";
+                            ValueSTR = '"'.ToString() + '"'.ToString() + " {}";
                             break;
 
                         case "Texture3D":
                             UShaderType = "3D";
-                            ValueSTR = '"' + '"' + " {}";
+                            ValueSTR = '"'.ToString() + '"'.ToString() + " {}";
                             break;
 
                         case "Vector2":
-                            UShaderType = "Float2";
+                            UShaderType = "Vector2";
                             ValueSTR = "(0,0)";
                             break;
 
                         case "Vector3":
-                            UShaderType = "Float3";
+                            UShaderType = "Vector3";
                             ValueSTR = "(0,0,0)";
                             break;
 
@@ -479,7 +479,7 @@ namespace AdvancedTerrainSystem
 
             string compiledShaderPath = "Assets/" + terrain.Directory + "/Shaders/Compiled.shader";
             string absCompiledShaderPath = Application.dataPath + "/../" + compiledShaderPath;
-
+            
             WriteFile(absCompiledShaderPath, compiledShaderContent);
 
             Shader shader = (Shader)AssetDatabase.LoadAssetAtPath(compiledShaderPath, typeof(Shader));
