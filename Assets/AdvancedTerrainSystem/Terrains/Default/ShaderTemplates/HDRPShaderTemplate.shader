@@ -345,7 +345,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -502,7 +502,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
     return surface;
 }
@@ -744,7 +744,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -1271,7 +1271,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToPS
@@ -1395,7 +1395,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -1635,7 +1635,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -2173,7 +2173,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -2337,7 +2337,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -2586,7 +2586,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -3128,7 +3128,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -3292,7 +3292,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -3541,7 +3541,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -4105,7 +4105,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -4281,7 +4281,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -4532,7 +4532,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -5081,7 +5081,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -5240,7 +5240,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
     surface.NormalTS = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1;
     surface.Smoothness = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
@@ -5484,7 +5484,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -6018,7 +6018,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -6182,7 +6182,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -6431,7 +6431,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -6983,7 +6983,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -7147,7 +7147,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -7396,7 +7396,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -7969,7 +7969,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -8146,7 +8146,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -8400,7 +8400,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -8985,7 +8985,7 @@ struct SurfaceDescriptionInputs
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 struct PackedVaryingsMeshToDS
@@ -9162,7 +9162,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -9416,7 +9416,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -9935,7 +9935,7 @@ int _PassValue;
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 
@@ -10000,7 +10000,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -10127,7 +10127,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -10617,7 +10617,7 @@ int _PassValue;
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 
@@ -10682,7 +10682,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -10809,7 +10809,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -11315,7 +11315,7 @@ int _PassValue;
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 
@@ -11380,7 +11380,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -11507,7 +11507,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -12011,7 +12011,7 @@ int _PassValue;
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 
@@ -12076,7 +12076,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -12203,7 +12203,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI
@@ -12702,7 +12702,7 @@ int _PassValue;
      float3 TangentSpaceNormal;
      float3 ObjectSpaceTangent;
      float3 WorldSpaceTangent;
-     float3 ObjectSpacePosition;
+     float3 AbsoluteWorldSpacePosition;
      float4 uv0;
 };
 
@@ -12767,7 +12767,7 @@ SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6;
     float _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
-    TerrainFragment_float(IN.ObjectSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
+    TerrainFragment_float(IN.AbsoluteWorldSpacePosition, IN.TangentSpaceNormal, _UV_afb6075dee81421fbe55b5c5420a81f7_Out_0, IN.ObjectSpaceTangent, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_NormalOut_1, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BentNormalOut_2, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_MetallicOut_3, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_SmoothnessOut_5, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AmbientOcclusionOut_6, _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7);
     surface.BaseColor = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_BaseColorOut_0;
     surface.Emission = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_EmissionOut_4;
     surface.Alpha = _TerrainFragmentCustomFunction_6ae1e2e243a3486e80193448e1e8c91a_AlphaOut_7;
@@ -12894,7 +12894,7 @@ void VertMeshTesselationCustomInterpolation(VaryingsMeshToDS input, inout Varyin
     output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
     output.WorldSpaceTangent = input.tangentToWorld[0].xyz;
     output.ObjectSpaceTangent = TransformWorldToObjectDir(output.WorldSpaceTangent);
-    output.ObjectSpacePosition = TransformWorldToObject(input.positionRWS);
+    output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionRWS);
     output.uv0 = input.texCoord0;
 
     // splice point to copy frag inputs custom interpolator pack into the SDI

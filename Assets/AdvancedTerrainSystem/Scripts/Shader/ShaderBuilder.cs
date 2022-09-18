@@ -183,21 +183,21 @@ namespace AdvancedTerrainSystem
 
                         case "Texture2D":
                             UShaderType = "2D";
-                            ValueSTR = '"' + '"' + " {}";
+                            ValueSTR = '"'.ToString() + '"'.ToString() + " {}";
                             break;
 
                         case "Texture3D":
                             UShaderType = "3D";
-                            ValueSTR = '"' + '"' + " {}";
+                            ValueSTR = '"'.ToString() + '"'.ToString() + " {}";
                             break;
 
                         case "Vector2":
-                            UShaderType = "Float2";
+                            UShaderType = "Vector2";
                             ValueSTR = "(0,0)";
                             break;
 
                         case "Vector3":
-                            UShaderType = "Float3";
+                            UShaderType = "Vector3";
                             ValueSTR = "(0,0,0)";
                             break;
 
@@ -391,13 +391,13 @@ namespace AdvancedTerrainSystem
                             float Alpha = SAMPLE_TEXTURE2D(ALPHAMAP_" + alphaMapIndex + @", SamplerState_Linear_Repeat, UV)." + alphaChannelName + @";
 
                             float3 BaseColorSmoothBlend = lerp(BaseColorOut, BaseColorOut_" + i.ToString() + @", Alpha);
-                            float3 NormalSmoothBlend = NormalOut;
-                            float3 BentNormalSmoothBlend = BentNormalOut;
-                            float MetallicSmoothBlend = MetallicOut;
-                            float3 EmissionSmoothBlend = EmissionOut; 
-                            float SmoothnessSmoothBlend = SmoothnessOut; 
-                            float AmbientOcclusionSmoothBlend = AmbientOcclusionOut; 
-                            float AlphaSmoothBlend = AlphaOut;
+                            float3 NormalSmoothBlend = lerp(NormalOut, NormalOut_" + i.ToString() + @", Alpha);
+                            float3 BentNormalSmoothBlend = lerp(BentNormalOut, BentNormalOut_" + i.ToString() + @", Alpha);
+                            float MetallicSmoothBlend = lerp(MetallicOut, MetallicOut_" + i.ToString() + @", Alpha);
+                            float3 EmissionSmoothBlend = lerp(EmissionOut, EmissionOut_" + i.ToString() + @", Alpha); 
+                            float SmoothnessSmoothBlend = lerp(SmoothnessOut, SmoothnessOut_" + i.ToString() + @", Alpha); 
+                            float AmbientOcclusionSmoothBlend = lerp(AmbientOcclusionOut, AmbientOcclusionOut_" + i.ToString() + @", Alpha); 
+                            float AlphaSmoothBlend = lerp(AlphaOut, AlphaOut_" + i.ToString() + @", Alpha);
 
                             float3 BaseColorHardBlend = BaseColorOut;
                             float3 NormalHardBlend = NormalOut;
@@ -479,7 +479,7 @@ namespace AdvancedTerrainSystem
 
             string compiledShaderPath = "Assets/" + terrain.Directory + "/Shaders/Compiled.shader";
             string absCompiledShaderPath = Application.dataPath + "/../" + compiledShaderPath;
-
+            
             WriteFile(absCompiledShaderPath, compiledShaderContent);
 
             Shader shader = (Shader)AssetDatabase.LoadAssetAtPath(compiledShaderPath, typeof(Shader));

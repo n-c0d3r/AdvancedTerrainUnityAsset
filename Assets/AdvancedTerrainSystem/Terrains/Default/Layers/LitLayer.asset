@@ -27,3 +27,94 @@ MonoBehaviour:
     m_Vector2Value: {x: 0, y: 0}
     m_Vector3Value: {x: 0, y: 0, z: 0}
     m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: AlbedoMap
+    m_TypeName: Texture2D
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 0
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 2800000, guid: ce91be14698143b4ab4934ccc9548128, type: 3}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: NormalMap
+    m_TypeName: Texture2D
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 0
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 2800000, guid: 426657fcc2f3899438f52f17dfc86005, type: 3}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: NormalStrength
+    m_TypeName: Float
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 1
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 0}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: RouchMap
+    m_TypeName: Texture2D
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 0
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 2800000, guid: 5b5b499d7ec3c7443b47996fc92bc5f1, type: 3}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: RouchIntensity
+    m_TypeName: Float
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 1
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 0}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  - m_Name: SizeAndOffset
+    m_TypeName: Vector4
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 0
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 0}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0.05, y: 0.05, z: 0, w: 0}
+  - m_Name: SmoothBlend
+    m_TypeName: Float
+    m_ColorValue: {r: 1, g: 1, b: 1, a: 1}
+    m_FloatValue: 1
+    m_Matrix4x4_R0_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R1_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R2_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Matrix4x4_R3_Value: {x: 0, y: 0, z: 0, w: 0}
+    m_Texture2DValue: {fileID: 0}
+    m_Texture3DValue: {fileID: 0}
+    m_Vector2Value: {x: 0, y: 0}
+    m_Vector3Value: {x: 0, y: 0, z: 0}
+    m_Vector4Value: {x: 0, y: 0, z: 0, w: 0}
