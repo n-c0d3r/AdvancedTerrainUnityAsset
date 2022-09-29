@@ -18,7 +18,7 @@ void FRAGMENT_SHADER_1(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 T
 
 
 
-	BaseColorOut = baseColor;// float3(UVIn.xy, 0);
+	BaseColorOut = NormalIn;// float3(UVIn.xy, 0);
 	NormalOut = tangentNormal;
 	BentNormalOut = float3(0, 1, 0);
 	MetallicOut = 0.5f;

@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Texture3DValue: {fileID: 0}
     m_Vector2Value: {x: 0, y: 0}
     m_Vector3Value: {x: 0, y: 0, z: 0}
-    m_Vector4Value: {x: 0.05, y: 0.05, z: 0, w: 0}
+    m_Vector4Value: {x: 0.04, y: 0.04, z: 0, w: 0}
   - m_Name: SmoothBlend
     m_TypeName: Float
     m_ColorValue: {r: 1, g: 1, b: 1, a: 1}

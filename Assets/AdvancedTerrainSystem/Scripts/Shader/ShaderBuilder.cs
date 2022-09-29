@@ -82,6 +82,13 @@ namespace AdvancedTerrainSystem
                     new KeyValuePair<string, string>(
                         "$Main",//"$FRAGMENT_SHADER",
                         "void FRAGMENT_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut, out float DisplacementOut, out float SmoothBlendOut)")
+                    ,
+
+                    new KeyValuePair<string, string>(
+                        "$TangentToObjectSpace",//"$FRAGMENT_SHADER",
+                        "TangentToObjectSpace"
+                    )
+
                 };
 
                 for (int i = 0; i < layer.m_Properties.Count; i++)
@@ -94,6 +101,12 @@ namespace AdvancedTerrainSystem
                     );
 
                 }
+
+                content = @"
+
+
+
+" + content;
 
                 content = PlaceholderReplace(content, placeholders.ToArray());
 
