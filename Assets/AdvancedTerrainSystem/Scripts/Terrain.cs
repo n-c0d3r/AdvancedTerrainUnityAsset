@@ -87,12 +87,14 @@ namespace AdvancedTerrainSystem
 
         }
 
+        [HideInInspector]
         public Shader m_Shader;
 
         public List<Layer> m_Layers;
 
-        //[HideInInspector]
+        [HideInInspector]
         public QuadtreeNode m_RootNode;
+        [HideInInspector]
         public UnityEngine.TerrainLayer[] m_TerrainLayers = new UnityEngine.TerrainLayer[0];
 
 

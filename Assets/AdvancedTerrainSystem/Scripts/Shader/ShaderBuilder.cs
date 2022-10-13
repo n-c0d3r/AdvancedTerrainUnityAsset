@@ -81,7 +81,7 @@ namespace AdvancedTerrainSystem
                     //    "void VERTEX_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 PositionOut, out float3 NormalOut, out float3 TangentOut, out float TessellationFactorOut, out float3 TessellationDisplacementOut)"),
                     new KeyValuePair<string, string>(
                         "$Main",//"$FRAGMENT_SHADER",
-                        "void FRAGMENT_SHADER_" + index.ToString() + "(float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut, out float DisplacementOut, out float SmoothBlendOut)")
+                        "void FRAGMENT_SHADER_" + index.ToString() + "(float AlphaIn, float3 PositionIn, float3 NormalIn, float4 UVIn, float3 TangentIn, out float3 BaseColorOut, out float3 NormalOut, out float3 BentNormalOut, out float MetallicOut, out float3 EmissionOut, out float SmoothnessOut, out float AmbientOcclusionOut, out float AlphaOut, out float DisplacementOut, out float SmoothBlendOut)")
                     ,
 
                     new KeyValuePair<string, string>(
@@ -132,7 +132,7 @@ namespace AdvancedTerrainSystem
             string propsStr = "";
 
             char[] alphaMapChannelNames = new char[m_Terrain.m_Layers.Count];
-            char currAlphaMapChannelName = 'z';
+            char currAlphaMapChannelName = 'w';
 
             for (int i = 0; i < m_Terrain.m_Layers.Count; i++)
             {
@@ -390,9 +390,11 @@ namespace AdvancedTerrainSystem
                     float AlphaOut_" + i.ToString() + @" = 0;
                     float DisplacementOut_" + i.ToString() + @" = 0;
                     float SmoothBlendOut_" + i.ToString() + @" = 0;
+
+                    float Alpha_" + i.ToString() + @" = SAMPLE_TEXTURE2D(ALPHAMAP_" + alphaMapIndex + @", SamplerState_Linear_Repeat, UV)." + alphaChannelName + @";
                 ";
                 pcomputes += System.Environment.NewLine;
-                pcomputes += "FRAGMENT_SHADER_" + i.ToString() + "(PositionIn,NormalIn,UVIn,TangentIn,BaseColorOut_" + i.ToString() + ",NormalOut_" + i.ToString() + ",BentNormalOut_" + i.ToString() + ",MetallicOut_" + i.ToString() + ",EmissionOut_" + i.ToString() + ",SmoothnessOut_" + i.ToString() + ",AmbientOcclusionOut_" + i.ToString() + @",AlphaOut_" + i.ToString() + ",DisplacementOut_" + i.ToString() + ",SmoothBlendOut_" + i.ToString() + @");";
+                pcomputes += "FRAGMENT_SHADER_" + i.ToString() + "(Alpha_" + i.ToString() + @", PositionIn,NormalIn,UVIn,TangentIn,BaseColorOut_" + i.ToString() + ",NormalOut_" + i.ToString() + ",BentNormalOut_" + i.ToString() + ",MetallicOut_" + i.ToString() + ",EmissionOut_" + i.ToString() + ",SmoothnessOut_" + i.ToString() + ",AmbientOcclusionOut_" + i.ToString() + @",AlphaOut_" + i.ToString() + ",DisplacementOut_" + i.ToString() + ",SmoothBlendOut_" + i.ToString() + @");";
                 pcomputes += System.Environment.NewLine;
 
 
@@ -401,10 +403,10 @@ namespace AdvancedTerrainSystem
 
                         {
 
-                            float Alpha = SAMPLE_TEXTURE2D(ALPHAMAP_" + alphaMapIndex + @", SamplerState_Linear_Repeat, UV)." + alphaChannelName + @";
+                            float Alpha = Alpha_" + i.ToString() + @";
 
                             float3 BaseColorSmoothBlend = lerp(BaseColorOut, BaseColorOut_" + i.ToString() + @", Alpha);
-                            float3 NormalSmoothBlend = lerp(NormalOut, NormalOut_" + i.ToString() + @", Alpha);
+                            float3 NormalSmoothBlend = normalize(lerp(NormalOut, NormalOut_" + i.ToString() + @", Alpha));
                             float3 BentNormalSmoothBlend = lerp(BentNormalOut, BentNormalOut_" + i.ToString() + @", Alpha);
                             float MetallicSmoothBlend = lerp(MetallicOut, MetallicOut_" + i.ToString() + @", Alpha);
                             float3 EmissionSmoothBlend = lerp(EmissionOut, EmissionOut_" + i.ToString() + @", Alpha); 
@@ -424,7 +426,7 @@ namespace AdvancedTerrainSystem
                             if(DisplacementOut <= DisplacementOut_" + i.ToString() + @"){
 
                                 BaseColorHardBlend = BaseColorOut_" + i.ToString() + @";
-                                NormalHardBlend = NormalOut_" + i.ToString() + @";
+                                NormalHardBlend = normalize(NormalOut_" + i.ToString() + @");
                                 BentNormalHardBlend = BentNormalOut_" + i.ToString() + @";
                                 MetallicHardBlend = MetallicOut_" + i.ToString() + @";
                                 EmissionHardBlend = EmissionOut_" + i.ToString() + @";
@@ -436,8 +438,18 @@ namespace AdvancedTerrainSystem
 
                             }
 
+
+
+                            SmoothBlendOut_" + i.ToString() + @" = lerp(SmoothBlendOut_" + (i - 1).ToString() + @", SmoothBlendOut_" + i.ToString() + @", Alpha_" + i.ToString() + @");
+
+
+
                             BaseColorOut = lerp( BaseColorHardBlend, BaseColorSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
-                            NormalOut = lerp( NormalHardBlend, NormalSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
+                            
+                            //BaseColorOut = lerp(SmoothBlendOut_" + (i - 1).ToString() + @", SmoothBlendOut_" + i.ToString() + @", Alpha_" + i.ToString() + @")*float3(1,1,1);
+                            //BaseColorOut = SmoothBlendOut_0*float3(1,1,1);
+
+NormalOut = normalize(lerp( NormalHardBlend, NormalSmoothBlend, SmoothBlendOut_" + i.ToString() + @"));
                             BentNormalOut = lerp( BentNormalHardBlend, BentNormalSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
                             MetallicOut = lerp( MetallicHardBlend, MetallicSmoothBlend, SmoothBlendOut_" + i.ToString() + @");
                             EmissionOut = lerp( EmissionHardBlend, EmissionSmoothBlend, SmoothBlendOut_" + i.ToString() + @"); 
@@ -472,6 +484,21 @@ namespace AdvancedTerrainSystem
 
 //BaseColorOut = SAMPLE_TEXTURE2D(ALPHAMAP_0, SamplerState_Linear_Repeat, UV).xyz;
 //BaseColorOut = UVIn;
+
+                        /*{
+
+                            BaseColorOut = BaseColorOut;
+                            NormalOut = NormalOut;
+                            BentNormalOut = float3(0,0,1);
+                            MetallicOut = 0;
+                            EmissionOut = float3(0,0,0);
+                            SmoothnessOut = 1;
+                            AmbientOcclusionOut = 1.0f;
+                            AlphaOut = 1.0f;
+
+                            DisplacementOut = 0;
+
+                        }*/
 
 ";
 

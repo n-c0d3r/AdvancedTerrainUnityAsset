@@ -12,10 +12,13 @@ $Main{
 
 	float fromRouchMap = SAMPLE_TEXTURE2D($RouchMap, SamplerState_Linear_Repeat, uv).x;
 
+	float fromDisplacementMap = SAMPLE_TEXTURE2D($DisplacementMap, SamplerState_Linear_Repeat, uv).x;
+
 	float3 baseColor = fromAlbedoMap * $BaseColor;
 	float3 tangentNormal = lerp(NormalIn, fromNormalMap, $NormalStrength);
 	float3 rouch = (1.0f - fromRouchMap) * (1.0f / ($RouchIntensity + 0.0000001f));
 	float smoothBlend = $SmoothBlend;
+	float displacement = $DisplacementOffset + $DisplacementAmplitude * fromDisplacementMap * AlphaIn * 1.0f;
 
 
 
@@ -28,7 +31,7 @@ $Main{
 	SmoothnessOut = rouch;
 	AmbientOcclusionOut = 1.0f;
 	AlphaOut = 1.0f;
-	DisplacementOut = 0.0f;
+	DisplacementOut = displacement;
 	SmoothBlendOut = smoothBlend;
 
 }
